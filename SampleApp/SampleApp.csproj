@@ -13,6 +13,12 @@
     <EnableMsixTooling>true</EnableMsixTooling>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="SampleContentDialogWindow.xaml" />
+    <None Remove="SampleExtendedContentDialogWindow.xaml" />
+    <None Remove="SampleUacWindow.xaml" />
+    <None Remove="SampleWindowedContentDialog.xaml" />
+  </ItemGroup>
 
   <ItemGroup>
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -42,6 +48,26 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SuGarToolkit.WinUI3.Controls.Dialogs\SuGarToolkit.WinUI3.Controls.Dialogs.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="SampleWindowedContentDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="SampleUacWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="SampleExtendedContentDialogWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="SampleContentDialogWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <!--

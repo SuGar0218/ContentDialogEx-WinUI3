@@ -13,5 +13,17 @@
     <None Update="Package.appxmanifest">
       <SubType>Designer</SubType>
     </None>
+    <Page Update="SampleWindowedContentDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="SampleUacWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="SampleExtendedContentDialogWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="SampleContentDialogWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 </Project>

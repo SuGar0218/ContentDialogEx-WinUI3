@@ -1,33 +1,58 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+using SuGarToolkit.WinUI3.Controls.Dialogs;
 
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+namespace SampleApp;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
-
-namespace SampleApp
+public sealed partial class MainWindow : Window
 {
-    /// <summary>
-    /// An empty window that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class MainWindow : Window
+    public MainWindow()
     {
-        public MainWindow()
+        InitializeComponent();
+    }
+
+    private async void OnShowWindowedContentDialogButtonClick(object sender, RoutedEventArgs e)
+    {
+        ContentDialogResult result = await new SampleWindowedContentDialog
         {
-            InitializeComponent();
+            Owner = this
         }
+        .ShowAsync();
+        new ContentDialogWindow
+        {
+            Header = "上一个对话框的结果",
+            Content = result.ToString(),
+            Owner = this
+        }
+        .ShowDialog();
+    }
+
+    private void OnShowContentDialogWindowButtonClick(object sender, RoutedEventArgs e)
+    {
+        new SampleContentDialogWindow
+        {
+            Owner = this
+        }
+        .ShowDialog();
+    }
+
+    private void OnShowExtendedContentDialogWindowButtonClick(object sender, RoutedEventArgs e)
+    {
+        new SampleExtendedContentDialogWindow
+        {
+            Owner = this
+        }
+        .ShowDialog();
+    }
+
+    private void OnShowUacDialogWindowButtonClick(object sender, RoutedEventArgs e)
+    {
+        new SampleUacWindow
+        {
+            Owner = this,
+            Severity = (InfoBarSeverity) PART_SeverityComboBox.SelectedItem
+        }
+        .ShowDialog();
     }
 }

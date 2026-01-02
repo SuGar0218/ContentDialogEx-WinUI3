@@ -1,19 +1,44 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Window
     x:Class="SampleApp.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:SampleApp"
+    xmlns:controls="using:SuGarToolkit.WinUI3.Controls.Dialogs"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:SampleApp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Title="SampleApp">
+    Title="SampleApp"
+    mc:Ignorable="d">
 
     <Window.SystemBackdrop>
         <MicaBackdrop />
     </Window.SystemBackdrop>
 
-    <Grid>
+    <StackPanel Spacing="12">
+        <Button
+            Click="OnShowWindowedContentDialogButtonClick"
+            Content="Show WindowedContentDialog"
+            Style="{ThemeResource AccentButtonStyle}" />
+        <Button
+            Click="OnShowContentDialogWindowButtonClick"
+            Content="Show ContentDialogWindow"
+            Style="{ThemeResource AccentButtonStyle}" />
+        <Button
+            Click="OnShowExtendedContentDialogWindowButtonClick"
+            Content="Show ExtendedContentDialogWindow"
+            Style="{ThemeResource AccentButtonStyle}" />
+        <StackPanel Orientation="Horizontal" Spacing="4">
+            <Button
+                Click="OnShowUacDialogWindowButtonClick"
+                Content="Show UacDialogWindow"
+                Style="{ThemeResource AccentButtonStyle}" />
+            <ComboBox x:Name="PART_SeverityComboBox" SelectedIndex="0">
+                <InfoBarSeverity>Informational</InfoBarSeverity>
+                <InfoBarSeverity>Success</InfoBarSeverity>
+                <InfoBarSeverity>Warning</InfoBarSeverity>
+                <InfoBarSeverity>Error</InfoBarSeverity>
+            </ComboBox>
+        </StackPanel>
+    </StackPanel>
 
-    </Grid>
 </Window>
