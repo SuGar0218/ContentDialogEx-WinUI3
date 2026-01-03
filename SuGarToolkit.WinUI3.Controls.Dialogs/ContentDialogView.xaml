@@ -110,9 +110,14 @@
                                 <local:UniformStackPanel
                                     HorizontalAlignment="Stretch"
                                     VerticalAlignment="Bottom"
-                                    Orientation="Horizontal"
+                                    Orientation="{TemplateBinding ButtonOrientation}"
                                     Spacing="{ThemeResource ContentDialogViewButtonSpacing}"
                                     XYFocusKeyboardNavigation="Enabled">
+                                    <ContentControl x:Name="CommandSpacePlaceholder" Visibility="Collapsed">
+                                        <ContentControl.Template>
+                                            <ControlTemplate TargetType="ContentControl" />
+                                        </ContentControl.Template>
+                                    </ContentControl>
                                     <Button
                                         x:Name="PrimaryButton"
                                         HorizontalAlignment="Stretch"
@@ -209,6 +214,18 @@
                                 <VisualState x:Name="CloseAsDefaultButton">
                                     <VisualState.Setters>
                                         <Setter Target="CloseButton.Style" Value="{ThemeResource AccentButtonStyle}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="CommandSpacePlaceholderStates">
+                                <VisualState x:Name="CommandSpacePlaceholderCollapsed">
+                                    <VisualState.Setters>
+                                        <Setter Target="CommandSpacePlaceholder.Visibility" Value="Collapsed" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="CommandSpacePlaceholderVisible">
+                                    <VisualState.Setters>
+                                        <Setter Target="CommandSpacePlaceholder.Visibility" Value="Visible" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>

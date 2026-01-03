@@ -12,6 +12,18 @@
 		<PlatformTarget>x64</PlatformTarget>
 		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <IsAotCompatible>True</IsAotCompatible>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+	  <IsAotCompatible>True</IsAotCompatible>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <IsAotCompatible>True</IsAotCompatible>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+	  <IsAotCompatible>True</IsAotCompatible>
+	</PropertyGroup>
 	<ItemGroup>
 		<None Remove="ContentDialogView.xaml" />
 		<None Remove="ContentDialogView_themeresources.xaml" />
@@ -25,7 +37,7 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.7175" />
 		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.251106002" />
-		<PackageReference Include="SuGarToolkit.WinUI3.Controls.Windows" Version="0.0.1-dev202601021957" />
+		<PackageReference Include="SuGarToolkit.WinUI3.Controls.Windows" Version="0.0.1-dev202601022111" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Page Update="UacStyleDialogWindow.xaml">

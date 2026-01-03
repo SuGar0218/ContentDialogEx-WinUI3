@@ -188,6 +188,19 @@ public partial class ExtendedContentDialogWindow : ContentDialogWindowBase, IExt
         new PropertyMetadata(true)
     );
 
+    public Orientation ButtonOrientation
+    {
+        get => (Orientation) GetValue(ButtonOrientationProperty);
+        set => SetValue(ButtonOrientationProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonOrientationProperty = DependencyProperty.Register(
+        nameof(ButtonOrientation),
+        typeof(Orientation),
+        typeof(ExtendedContentDialogWindow),
+        new PropertyMetadata(Orientation.Horizontal)
+    );
+
     public Style? PrimaryButtonStyle
     {
         get => (Style) GetValue(PrimaryButtonStyleProperty);

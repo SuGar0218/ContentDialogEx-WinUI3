@@ -62,6 +62,7 @@
                         <local:ContentDialogView
                             x:Name="PART_ContentDialogView"
                             Grid.Row="1"
+                            ButtonOrientation="{TemplateBinding ButtonOrientation}"
                             CloseButtonAccessKey="{TemplateBinding CloseButtonAccessKey}"
                             CloseButtonContent="{TemplateBinding CloseButtonContent}"
                             CloseButtonStyle="{TemplateBinding CloseButtonStyle}"

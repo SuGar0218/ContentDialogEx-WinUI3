@@ -16,7 +16,7 @@ public partial class ContentDialogWindow : ContentDialogWindowBase, IContentDial
         ExtendsContentIntoTitleBar = true;
     }
 
-    #region DependencyProperty for inner ContentDialogView
+    #region DependencyProperty
 
     public object? Header
     {
@@ -146,6 +146,19 @@ public partial class ContentDialogWindow : ContentDialogWindowBase, IContentDial
         typeof(bool),
         typeof(ContentDialogWindow),
         new PropertyMetadata(true)
+    );
+
+    public Orientation ButtonOrientation
+    {
+        get => (Orientation) GetValue(ButtonOrientationProperty);
+        set => SetValue(ButtonOrientationProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonOrientationProperty = DependencyProperty.Register(
+        nameof(ButtonOrientation),
+        typeof(Orientation),
+        typeof(ContentDialogWindow),
+        new PropertyMetadata(Orientation.Horizontal)
     );
 
     public Style? PrimaryButtonStyle

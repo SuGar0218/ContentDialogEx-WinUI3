@@ -162,6 +162,19 @@ public partial class ContentDialogView : ContentControl, IContentDialog
         new PropertyMetadata(true)
     );
 
+    public Orientation ButtonOrientation
+    {
+        get => (Orientation) GetValue(ButtonOrientationProperty);
+        set => SetValue(ButtonOrientationProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonOrientationProperty = DependencyProperty.Register(
+        nameof(ButtonOrientation),
+        typeof(Orientation),
+        typeof(ContentDialogView),
+        new PropertyMetadata(Orientation.Horizontal, OnButtonOrientationChanged)
+    );
+
     public Style? PrimaryButtonStyle
     {
         get => (Style) GetValue(PrimaryButtonStyleProperty);
@@ -306,8 +319,9 @@ public partial class ContentDialogView : ContentControl, IContentDialog
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
-        ButtonsVisibilityState = DetermineButtonsVisibilityState();
-        DefaultButtonState = DetermineDefaultButtonState();
+        DetermineButtonsVisibilityState();
+        DetermineDefaultButtonState();
+        DetermineCommandSpacePlaceholderState();
     }
 
     private static void OnDefaultButtonChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -315,11 +329,20 @@ public partial class ContentDialogView : ContentControl, IContentDialog
         ContentDialogView self = (ContentDialogView) d;
         if (self.IsLoaded)
         {
-            self.DefaultButtonState = self.DetermineDefaultButtonState();
+            self.DetermineDefaultButtonState();
         }
     }
 
-    private string DetermineButtonsVisibilityState()
+    private static void OnButtonOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        ContentDialogView self = (ContentDialogView) d;
+        if (self.IsLoaded)
+        {
+            self.DetermineCommandSpacePlaceholderState();
+        }
+    }
+
+    private void DetermineButtonsVisibilityState()
     {
         bool isPrimaryButtonVisible = PrimaryButtonContent is not null;
         bool isSecondaryButtonVisible = SecondaryButtonContent is not null;
@@ -331,22 +354,22 @@ public partial class ContentDialogView : ContentControl, IContentDialog
             {
                 if (isCloseButtonVisible)
                 {
-                    return "AllVisible";
+                    ButtonsVisibilityState = "AllVisible";
                 }
                 else
                 {
-                    return "PrimaryAndSecondaryVisible";
+                    ButtonsVisibilityState = "PrimaryAndSecondaryVisible";
                 }
             }
             else
             {
                 if (isCloseButtonVisible)
                 {
-                    return "PrimaryAndCloseVisible";
+                    ButtonsVisibilityState = "PrimaryAndCloseVisible";
                 }
                 else
                 {
-                    return "PrimaryVisible";
+                    ButtonsVisibilityState = "PrimaryVisible";
                 }
             }
         }
@@ -356,48 +379,88 @@ public partial class ContentDialogView : ContentControl, IContentDialog
             {
                 if (isCloseButtonVisible)
                 {
-                    return "SecondaryAndCloseVisible";
+                    ButtonsVisibilityState = "SecondaryAndCloseVisible";
                 }
                 else
                 {
-                    return "SecondaryVisible";
+                    ButtonsVisibilityState = "SecondaryVisible";
                 }
             }
             else
             {
                 if (isCloseButtonVisible)
                 {
-                    return "CloseVisible";
+                    ButtonsVisibilityState = "CloseVisible";
                 }
                 else
                 {
-                    return "NoneVisible";
+                    ButtonsVisibilityState = "NoneVisible";
                 }
             }
         }
     }
 
-    private string DetermineDefaultButtonState()
+    private void DetermineDefaultButtonState()
     {
         switch (DefaultButton)
         {
             case ContentDialogButton.Primary:
                 PrimaryButton.KeyboardAccelerators.Add(new KeyboardAccelerator { Key = VirtualKey.Enter });
                 PrimaryButton.Focus(FocusState.Programmatic);
-                return "PrimaryAsDefaultButton";
+                DefaultButtonState = "PrimaryAsDefaultButton";
+                break;
 
             case ContentDialogButton.Secondary:
                 SecondaryButton.KeyboardAccelerators.Add(new KeyboardAccelerator { Key = VirtualKey.Enter });
                 SecondaryButton.Focus(FocusState.Programmatic);
-                return "SecondaryAsDefaultButton";
+                DefaultButtonState = "SecondaryAsDefaultButton";
+                break;
 
             case ContentDialogButton.Close:
                 CloseButton.KeyboardAccelerators.Add(new KeyboardAccelerator { Key = VirtualKey.Enter });
                 CloseButton.Focus(FocusState.Programmatic);
-                return "CloseAsDefaultButton";
+                DefaultButtonState = "CloseAsDefaultButton";
+                break;
 
             default:
-                return "NoDefaultButton";
+                DefaultButtonState = "NoDefaultButton";
+                break;
+        }
+    }
+
+    private void DetermineCommandSpacePlaceholderState()
+    {
+        bool isPrimaryButtonVisible = PrimaryButtonContent is not null;
+        bool isSecondaryButtonVisible = SecondaryButtonContent is not null;
+        bool isCloseButtonVisible = CloseButtonContent is not null;
+
+        if (ButtonOrientation is Orientation.Horizontal)
+        {
+            int countVisible = 0;
+            if (isPrimaryButtonVisible)
+            {
+                countVisible++;
+            }
+            if (isSecondaryButtonVisible)
+            {
+                countVisible++;
+            }
+            if (isCloseButtonVisible)
+            {
+                countVisible++;
+            }
+            if (countVisible == 1)
+            {
+                CommandSpacePlaceholderState = "CommandSpacePlaceholderVisible";
+            }
+            else
+            {
+                CommandSpacePlaceholderState = "CommandSpacePlaceholderCollapsed";
+            }
+        }
+        else
+        {
+            CommandSpacePlaceholderState = "CommandSpacePlaceholderCollapsed";
         }
     }
 
@@ -415,6 +478,19 @@ public partial class ContentDialogView : ContentControl, IContentDialog
     }
 
     private string DefaultButtonState
+    {
+        get => field;
+        set
+        {
+            if (field == value)
+                return;
+
+            field = value;
+            VisualStateManager.GoToState(this, value, false);
+        }
+    }
+
+    private string CommandSpacePlaceholderState
     {
         get => field;
         set

@@ -15,6 +15,7 @@
                 <ControlTemplate TargetType="local:ExtendedContentDialogWindow">
                     <local:ExtendedContentDialogView
                         x:Name="PART_ExtendedContentDialogView"
+                        ButtonOrientation="{TemplateBinding ButtonOrientation}"
                         CloseButtonAccessKey="{TemplateBinding CloseButtonAccessKey}"
                         CloseButtonContent="{TemplateBinding CloseButtonContent}"
                         CloseButtonStyle="{TemplateBinding CloseButtonStyle}"

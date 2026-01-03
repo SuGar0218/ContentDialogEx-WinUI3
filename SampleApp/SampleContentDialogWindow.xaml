@@ -8,10 +8,9 @@
     xmlns:local="using:SampleApp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="ContentDialogWindow"
+    ButtonOrientation="Vertical"
     CloseButtonContent="Close"
     Header="Header"
-    PrimaryButtonContent="PrimaryButton"
-    SecondaryButtonContent="SecondaryButton"
     mc:Ignorable="d">
 
     <controls:ContentDialogWindow.SystemBackdrop>

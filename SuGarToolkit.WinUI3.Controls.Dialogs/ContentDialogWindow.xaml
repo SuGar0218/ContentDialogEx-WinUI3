@@ -14,6 +14,7 @@
                 <ControlTemplate TargetType="local:ContentDialogWindow">
                     <local:ContentDialogView
                         x:Name="PART_ContentDialogView"
+                        ButtonOrientation="{TemplateBinding ButtonOrientation}"
                         CloseButtonAccessKey="{TemplateBinding CloseButtonAccessKey}"
                         CloseButtonContent="{TemplateBinding CloseButtonContent}"
                         CloseButtonStyle="{TemplateBinding CloseButtonStyle}"
